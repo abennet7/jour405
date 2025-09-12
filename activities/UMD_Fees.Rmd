@@ -89,7 +89,7 @@ HINT HINT HINT
 Write a few sentences about what you found in the data. What's the story here?
 
 
-
+A story could be that student counseling fees has gone up. This can be a good story that the university is putting more funding towards student counseling and student mental health since in recent years there have been a couple incidents on campus involving suicide.
 
 
 When you are done, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
