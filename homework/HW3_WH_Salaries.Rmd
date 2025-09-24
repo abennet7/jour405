@@ -31,8 +31,10 @@ The data is a list of employees and their salaries. The salaries that stand out 
 Write code to calculate the mean and median of the salaries in the dataset using the `summarize()` function. You don't need to make a new dataframe, just display the results.
 
 ```{r}
+wh_salaries |>
 summarize(
-  mean_salary = mean('salary') 
+  mean_salary = mean(salary), 
+  median_salary = median(salary)
 )
 ```
 
@@ -41,9 +43,13 @@ summarize(
 Take the code you just wrote and add in the minimum and maximum salaries (the functions for that are `min()` and `max()`). Your results should show four columns: mean_salary, median_salary, min_salary, max_salary.
 
 ```{r}
-min(salary, na.rm = FALSE)
-
-I keep getting an error Im not sure what to do. Im going to attend office hours monday to rework this homework.
+wh_salaries |>
+summarize(
+  mean_salary = mean(salary), 
+  median_salary = median(salary),
+  min_salary = min(salary),
+  max_salary = max(salary)
+)
 ```
 
 ### Task 6: Describe the Results
