@@ -22,8 +22,7 @@ library(janitor)
 ### Task 2: Load the UMD Fees dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/umd_fees.csv
 
 ```{r}
-umd_fees <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/umd_fees.csv") |> 
-   clean_names()
+umd_fees <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/umd_fees.csv") 
 ```
 
 ### Task 3: Calculate the percentage change in each category between Fall 2024 and Fall 2021 using `mutate()`
