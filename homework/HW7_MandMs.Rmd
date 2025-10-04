@@ -1,31 +1,103 @@
 ---
 title: "HW7_MandMs"
+date: 10/1/2025
 ---
+
 
 In this assignment, you'll be picking up where you left off with the M&Ms activity. You'll load the data and perform some basic statistical analysis. Follow the steps below to complete the assignment.
 
 ### Task 1: Load the tidyverse
 
-
-### Task 2: Load the M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
-
-
-### Task 3: Sample 5 rows of data from the dataset
+```{r}
+library(tidyverse)
+```
 
 
-### Task 4: Calculate the mean age and standard deviation of the sample, using either the blue or white number of M&Ms
+### Task 2: Load an M&Ms dataset from https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv
+```{r}
+MMs <- read_csv("https://raw.githubusercontent.com/dwillis/jour405/refs/heads/main/data/mandms.csv")
+```
 
 
-### Task 5: Calculate the mean age and standard deviation of the population, using the same measure as in Task 4
+### Task 3: Sample 5 rows of data from the dataset, and then sample 10 rows, saving each to separate dataframes called sample5 and sample10. Be sure to use set.seed(1234) before you start.
+```{r}
+set.seed(1234)
+MMs <- tibble(
+  red = sample(1:100, replace = TRUE)
+)
 
 
-### Task 6: Compare the sample and population statistics
+sample_5 <- MMs |> 
+  sample_n(5)
 
-Compare the two sets of means and standard deviations. Are they similar?
+sample_10 <- MMs |> 
+  sample_n(10)
+```
 
-### Task 7: Describe the results
 
-Write a few sentences about what you found in the data. What does this tell you about the M&Ms dataset and about the act of random sampling?
+### Task 4: Calculate the mean, median and standard deviation of red M&Ms from each of the samples.
+```{r}
+sample_5 |> summarize(mean = mean(red), median = median(red), sd = sd(red))
 
+sample_10 |> summarize(mean = mean(red), median = median(red), sd = sd(red))
+```
+
+
+### Task 5: Calculate the mean, median and standard deviation of red M&Ms from the population
+
+```{r}
+MMs |> summarize(mean = mean(red), median = median(red), sd = sd(red))
+```
+
+### Task 6: Make three histograms: one each for sample5, sample10 and the original dataset. Include a headline. Use a consistent binwidth.
+
+```{r}
+sample_5 |> 
+  ggplot(aes(x= red)) +
+  geom_histogram(bins = 5, fill = "blue", color = "black") +
+  geom_vline(aes(xintercept = mean(red)), color = "red", linetype = "dashed") +
+   geom_vline(aes(xintercept = mean(red) + sd(red)), color = "yellow", linetype ="dashed") +
+    geom_vline(aes(xintercept = mean(red) - sd(red)), color = "yellow", linetype ="dashed") +
+  labs(title = "Sample 5 of M&Ms", x = "Red M&Ms", y = "Number of M&Ms")
+  
+```
+```{r}
+sample_10 |> 
+  ggplot(aes(x= red)) +
+  geom_histogram(bins = 5, fill = "blue", color = "black") +
+  geom_vline(aes(xintercept = mean(red)), color = "red", linetype = "dashed") +
+  geom_vline(aes(xintercept = mean(red) + sd(red)), color = "yellow", linetype ="dashed") +
+    geom_vline(aes(xintercept = mean(red) - sd(red)), color = "yellow", linetype ="dashed") +
+  labs(title = "Sample 10 of M&Ms", x = "Red M&Ms", y = "Number of M&Ms")
+```
+```{r}
+MMs |> 
+  ggplot(aes(x= red)) +
+  geom_histogram(bins = 5, fill = "blue", color = "black") +
+  geom_vline(aes(xintercept = mean(red)), color = "red", linetype = "dashed") +
+   geom_vline(aes(xintercept = mean(red) + sd(red)), color = "yellow", linetype ="dashed") +
+    geom_vline(aes(xintercept = mean(red) - sd(red)), color = "yellow", linetype ="dashed") +
+  labs(title = "Population of M&Ms", x = "Red M&Ms", y = "Number of M&Ms")
+```
+
+
+### Task 7: Answer questions
+
+
+Compare the three sets of means, standard deviations and histograms. Which are more helpful to you in understanding the accuracy of the samples?
+
+Both of the sample histograms are not completely accurate/similar to the population histogram. The one that is most similar when you are looking at the mean and standard deviation lines is the sample of 5. This is a surprising conclusion because generally the bigger sample you have the more accurate it is with matching a population. Using the mean is more helpful to understanding the accuracy of the samples because those are the most similar.
+
+What does this exercise tell you about the relationship between sample size and estimate accuracy?
+
+The relationship between sample size and estimate accuracy varies greatly. Since each sample is different you cannot always accurately estimate what the statistics of the sample are going to be.
+
+How does random sampling introduce variation into statistical estimates?
+
+Each sample is a unique subset of the population so it will vary which data it will show. This is why estimates are just what they are... estimates. They cannot always accuratly depict which set of data from the population will be selected. 
+
+If you repeated this process, would the samples always be identical? Why or why not?
+
+No it would not. Each sample is different and selects a different set of the data. 
 
 When finished, save your work, switch to GitHub Desktop, then add, commit and push your changes to GitHub and submit the URL of the notebook in ELMS.
