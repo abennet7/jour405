@@ -1753,17 +1753,106 @@ display: none;
 
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHVTRVZNVEU5Y2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5IRUxMT1xuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuSEVMTE9cbmBgYCJ9 -->
-<pre class="r"><code>HELLO</code></pre>
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV1JmWTNKcGJXVWdQQzBnY21WaFpGOWpjM1lvWENKK0wwUmxjMnQwYjNBdmJXUmZZM0pwYldVeU1ESXpMVEl3TWpRdVkzTjJYQ0lwWEc1Z1lHQWlmUT09IC0tPlxuXG5gYGByXG5tZF9jcmltZSA8LSByZWFkX2NzdihcIn4vRGVza3RvcC9tZF9jcmltZTIwMjMtMjAyNC5jc3ZcIilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWRfY3JpbWUgPC0gcmVhZF9jc3YoXCJ+L0Rlc2t0b3AvbWRfY3JpbWUyMDIzLTIwMjQuY3N2XCIpXG5gYGAifQ== -->
+<pre class="r"><code>md_crime &lt;- read_csv(&quot;~/Desktop/md_crime2023-2024.csv&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV1JmWTI5MWJuUjVYM0J2Y0NBOExTQnlaV0ZrWDJOemRpaGNJbjR2Ukc5amRXMWxiblJ6TDBwdmRYSTBNRFZCTDNCeWIycGxZM1F2Um1sdVlXeGZVSEp2YW1WamRDOXRaRjlqYjNWdWRIbGZjRzl3TG1OemRsd2lLVnh1WUdCZ0luMD0gLS0+XG5cbmBgYHJcbm1kX2NvdW50eV9wb3AgPC0gcmVhZF9jc3YoXCJ+L0RvY3VtZW50cy9Kb3VyNDA1QS9wcm9qZWN0L0ZpbmFsX1Byb2plY3QvbWRfY291bnR5X3BvcC5jc3ZcIilcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWRfY291bnR5X3BvcCA8LSByZWFkX2NzdihcIn4vRG9jdW1lbnRzL0pvdXI0MDVBL3Byb2plY3QvRmluYWxfUHJvamVjdC9tZF9jb3VudHlfcG9wLmNzdlwiKVxuYGBgIn0= -->
+<pre class="r"><code>md_county_pop &lt;- read_csv(&quot;~/Documents/Jour405A/project/Final_Project/md_county_pop.csv&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol style="list-style-type: decimal">
+<li><p>The md_county_pop set of data includes the population of all
+counties in Maryland. The md_crime set of data includes a list of all
+crimes that happened in MD throughout 2023-2024. It includes the date
+&amp; what time the crime occurred, offense name &amp; category, crime
+against society person or property, and the location.</p></li>
+<li><p>The column that will be the most important is county_name. If I
+am examining crime patterns in counties I will need to be able to
+seperate what is going on in each county.</p></li>
+<li><p>What isn’t necessarily missing, but I want to create new data
+sets and seperate the crimes by county. Because there is so much data it
+is a little hard to read currently and that I believe would help me
+understand what I am looking at more.</p></li>
+<li><p>Producing mean, median, mode, max and min with incident_hour
+category below.</p></li>
+</ol>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV1JmWTNKcGJXVWthVzVqYVdSbGJuUmZhRzkxY2lBOExTQmhjeTV1ZFcxbGNtbGpLRzFrWDJOeWFXMWxKR2x1WTJsa1pXNTBYMmh2ZFhJcFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxubWRfY3JpbWUkaW5jaWRlbnRfaG91ciA8LSBhcy5udW1lcmljKG1kX2NyaW1lJGluY2lkZW50X2hvdXIpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWRfY3JpbWUkaW5jaWRlbnRfaG91ciA8LSBhcy5udW1lcmljKG1kX2NyaW1lJGluY2lkZW50X2hvdXIpXG5gYGAifQ== -->
+<pre class="r"><code>md_crime$incident_hour &lt;- as.numeric(md_crime$incident_hour)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV1ZoYmlodFpGOWpjbWx0WlNScGJtTnBaR1Z1ZEY5b2IzVnlMQ0J1WVM1eWJTQTlJRlJTVlVVcFhHNWdZR0FpZlE9PSAtLT5cblxuYGBgclxubWVhbihtZF9jcmltZSRpbmNpZGVudF9ob3VyLCBuYS5ybSA9IFRSVUUpXG5gYGBcblxuPCEtLSBybmItc291cmNlLWVuZCAtLT5cbiJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVhbihtZF9jcmltZSRpbmNpZGVudF9ob3VyLCBuYS5ybSA9IFRSVUUpXG5gYGAifQ== -->
+<pre class="r"><code>mean(md_crime$incident_hour, na.rm = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDExLjM5NzExXG4ifQ== -->
+<pre><code>[1] 11.39711</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV1ZrYVdGdUtHMWtYMk55YVcxbEpHbHVZMmxrWlc1MFgyaHZkWElzSUc1aExuSnRJRDBnVkZKVlJTbGNibUJnWUNKOSAtLT5cblxuYGBgclxubWVkaWFuKG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSlcbmBgYFxuXG48IS0tIHJuYi1zb3VyY2UtZW5kIC0tPlxuIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWVkaWFuKG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSlcbmBgYCJ9 -->
+<pre class="r"><code>median(md_crime$incident_hour, na.rm = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDEyXG4ifQ== -->
+<pre><code>[1] 12</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV0Y0S0cxa1gyTnlhVzFsSkdsdVkybGtaVzUwWDJodmRYSXNJRzVoTG5KdElEMGdWRkpWUlNsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5tYXgobWRfY3JpbWUkaW5jaWRlbnRfaG91ciwgbmEucm0gPSBUUlVFKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWF4KG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSlcbmBgYCJ9 -->
+<pre class="r"><code>max(md_crime$incident_hour, na.rm = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDIzXG4ifQ== -->
+<pre><code>[1] 23</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-output-begin eyJkYXRhIjoiXG48IS0tIHJuYi1zb3VyY2UtYmVnaW4gZXlKa1lYUmhJam9pWUdCZ2NseHViV2x1S0cxa1gyTnlhVzFsSkdsdVkybGtaVzUwWDJodmRYSXNJRzVoTG5KdElEMGdWRkpWUlNsY2JtQmdZQ0o5IC0tPlxuXG5gYGByXG5taW4obWRfY3JpbWUkaW5jaWRlbnRfaG91ciwgbmEucm0gPSBUUlVFKVxuYGBgXG5cbjwhLS0gcm5iLXNvdXJjZS1lbmQgLS0+XG4ifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubWluKG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSlcbmBgYCJ9 -->
+<pre class="r"><code>min(md_crime$incident_hour, na.rm = TRUE)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-output-end -->
+<!-- rnb-output-begin eyJkYXRhIjoiWzFdIDBcbiJ9 -->
+<pre><code>[1] 0</code></pre>
+<!-- rnb-output-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<ol start="5" style="list-style-type: decimal">
+<li>Potential hypothesis that I could test include a. the majority of
+property crimes happen in the evening or b. Assaults are more common on
+weekends vs weekdays or c. Shoplifting increased drasticically from 2023
+to 2024. or d. Certain types of crimes are more popular in specific
+seasons</li>
+</ol>
+<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWxfUHJvamVjdCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyfQpIRUxMTwpgYGAKCgo=</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiRmluYWxfUHJvamVjdCIKb3V0cHV0OiBodG1sX25vdGVib29rCi0tLQoKCmBgYHtyIHNldHVwLCBpbmNsdWRlPUZBTFNFfQpsaWJyYXJ5KGtuaXRyKQprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUsIG1lc3NhZ2UgPSBGQUxTRSwgd2FybmluZyA9IEZBTFNFKQpsaWJyYXJ5KHRpZHl2ZXJzZSkKCmBgYAoKCmBgYHtyfQptZF9jcmltZSA8LSByZWFkX2Nzdigifi9EZXNrdG9wL21kX2NyaW1lMjAyMy0yMDI0LmNzdiIpCmBgYAoKYGBge3J9Cm1kX2NvdW50eV9wb3AgPC0gcmVhZF9jc3YoIn4vRG9jdW1lbnRzL0pvdXI0MDVBL3Byb2plY3QvRmluYWxfUHJvamVjdC9tZF9jb3VudHlfcG9wLmNzdiIpCmBgYAoKMS4gVGhlIG1kX2NvdW50eV9wb3Agc2V0IG9mIGRhdGEgaW5jbHVkZXMgdGhlIHBvcHVsYXRpb24gb2YgYWxsIGNvdW50aWVzIGluIE1hcnlsYW5kLgpUaGUgbWRfY3JpbWUgc2V0IG9mIGRhdGEgaW5jbHVkZXMgYSBsaXN0IG9mIGFsbCBjcmltZXMgdGhhdCBoYXBwZW5lZCBpbiBNRCB0aHJvdWdob3V0IDIwMjMtMjAyNC4gSXQgaW5jbHVkZXMgdGhlIGRhdGUgJiB3aGF0IHRpbWUgdGhlIGNyaW1lIG9jY3VycmVkLCBvZmZlbnNlIG5hbWUgJiBjYXRlZ29yeSwgY3JpbWUgYWdhaW5zdCBzb2NpZXR5IHBlcnNvbiBvciBwcm9wZXJ0eSwgYW5kIHRoZSBsb2NhdGlvbi4gCjIuIFRoZSBjb2x1bW4gdGhhdCB3aWxsIGJlIHRoZSBtb3N0IGltcG9ydGFudCBpcyBjb3VudHlfbmFtZS4gSWYgSSBhbSBleGFtaW5pbmcgY3JpbWUgcGF0dGVybnMgaW4gY291bnRpZXMgSSB3aWxsIG5lZWQgdG8gYmUgYWJsZSB0byBzZXBlcmF0ZSB3aGF0IGlzIGdvaW5nIG9uIGluIGVhY2ggY291bnR5LgozLiBXaGF0IGlzbid0IG5lY2Vzc2FyaWx5IG1pc3NpbmcsIGJ1dCBJIHdhbnQgdG8gY3JlYXRlIG5ldyBkYXRhIHNldHMgYW5kIHNlcGVyYXRlIHRoZSBjcmltZXMgYnkgY291bnR5LiBCZWNhdXNlIHRoZXJlIGlzIHNvIG11Y2ggZGF0YSBpdCBpcyBhIGxpdHRsZSBoYXJkIHRvIHJlYWQgY3VycmVudGx5IGFuZCB0aGF0IEkgYmVsaWV2ZSB3b3VsZCBoZWxwIG1lIHVuZGVyc3RhbmQgd2hhdCBJIGFtIGxvb2tpbmcgYXQgbW9yZS4KCjQuIFByb2R1Y2luZyBtZWFuLCBtZWRpYW4sIG1vZGUsIG1heCBhbmQgbWluIHdpdGggaW5jaWRlbnRfaG91ciBjYXRlZ29yeSBiZWxvdy4KCmBgYHtyfQptZF9jcmltZSRpbmNpZGVudF9ob3VyIDwtIGFzLm51bWVyaWMobWRfY3JpbWUkaW5jaWRlbnRfaG91cikKYGBgCgpgYGB7cn0KbWVhbihtZF9jcmltZSRpbmNpZGVudF9ob3VyLCBuYS5ybSA9IFRSVUUpCmBgYApgYGB7cn0KbWVkaWFuKG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSkKYGBgCgpgYGB7cn0KbWF4KG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSkKYGBgCgpgYGB7cn0KbWluKG1kX2NyaW1lJGluY2lkZW50X2hvdXIsIG5hLnJtID0gVFJVRSkKYGBgCgo1LiBQb3RlbnRpYWwgaHlwb3RoZXNpcyB0aGF0IEkgY291bGQgdGVzdCBpbmNsdWRlIGEuIHRoZSBtYWpvcml0eSBvZiBwcm9wZXJ0eSBjcmltZXMgaGFwcGVuIGluIHRoZSBldmVuaW5nIG9yIGIuIEFzc2F1bHRzIGFyZSBtb3JlIGNvbW1vbiBvbiB3ZWVrZW5kcyB2cyB3ZWVrZGF5cyBvciBjLiBTaG9wbGlmdGluZyBpbmNyZWFzZWQgZHJhc3RpY2ljYWxseSBmcm9tIDIwMjMgdG8gMjAyNC4gb3IgZC4gQ2VydGFpbiB0eXBlcyBvZiBjcmltZXMgYXJlIG1vcmUgcG9wdWxhciBpbiBzcGVjaWZpYyBzZWFzb25zIA==</div>
 
 
 
