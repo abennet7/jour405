@@ -14,6 +14,7 @@ library(tidyverse)
 
 ```{r}
 md_crime <- read_csv("~/Desktop/md_crime2023-2024.csv")
+#I know this needs to be fixed for part 2 revision, but I am not sure how to upload this file to github since it is saying the file is too large to push it to origin. I have emailed Professor Wells and will fix this as soon as I get guidance on what to do. Until I am able to fix it I am going to include screenshots into the project folder that the code does work on my end because the file is in my desktop. 
 ```
 
 ```{r}
@@ -25,7 +26,7 @@ The md_crime set of data includes a list of all crimes that happened in MD throu
 2. The column that will be the most important is county_name. If I am examining crime patterns in counties I will need to be able to seperate what is going on in each county.
 3. What isn't necessarily missing, but I want to create new data sets and seperate the crimes by county. Because there is so much data it is a little hard to read currently and that I believe would help me understand what I am looking at more.
 
-4. Producing mean, median, mode, max and min with incident_hour category below.
+4. Producing mean, median, mode, max, min, and standard deviation with incident_hour category below.
 
 ```{r}
 md_crime$incident_hour <- as.numeric(md_crime$incident_hour)
@@ -45,5 +46,88 @@ max(md_crime$incident_hour, na.rm = TRUE)
 ```{r}
 min(md_crime$incident_hour, na.rm = TRUE)
 ```
+```{r}
+sd(md_crime$incident_hour, na.rm = TRUE)
+#added in part 2 revision
+```
 
-5. Potential hypothesis that I could test include a. the majority of property crimes happen in the evening or b. Assaults are more common on weekends vs weekdays or c. Shoplifting increased drasticically from 2023 to 2024. or d. Certain types of crimes are more popular in specific seasons 
+Potential hypothesis that I could test include a. the majority of property crimes happen in the evening.
+**Revised in pt 2**
+Null hypothesis:
+The proportion of property crimes that occur when it is dark out, between the hours of 8 p.m. and 6 a.m., is less than or equal to 50%.
+H0 : p ≤ 0.50
+
+Alternative hypothesis:
+The proportion of property crimes that occur when it is dark out, between the hours of 8 p.m. and 6 a.m., is greater than 50%.
+H1 : p > 0.50
+
+```{r}
+Property_total <- sum(md_crime$crime_against == "Property", na.rm = TRUE)
+```
+
+```{r}
+Property_total
+```
+
+```{r}
+Property_dark <- sum(md_crime$crime_against == "Property" &
+    (md_crime$incident_hour >= 20 | md_crime$incident_hour < 6),
+    na.rm = TRUE)
+```
+
+```{r}
+Property_dark
+```
+
+```{r}
+x <- Property_dark
+n <- Property_total
+```
+
+```{r}
+prop.test(x, n, p = 0.50, alternative = "greater", correct = FALSE)
+```
+
+```{r}
+binom.test(x, n, p = 0.50, alternative = "greater")
+```
+**Test Interpretation**
+The alternative hypothesis is true because the proportion is greater than 50% and the majority of property crimes do happen when it is dark out. 
+
+
+```{r}
+property_df <- md_crime %>%
+  filter(crime_against == "Property")
+```
+
+```{r}
+property_df$incident_hour <- as.numeric(property_df$incident_hour)
+```
+
+```{r}
+hour_counts <- property_df %>%
+  group_by(incident_hour) %>%
+  summarise(count = n(), .groups = "drop")
+```
+
+```{r}
+ggplot(hour_counts, aes(x = incident_hour, y = count)) +
+  geom_col(fill = "steelblue") +
+  # Highlight dark hours (20–23 and 0–5)
+  annotate("rect", xmin = 20, xmax = 24, ymin = -Inf, ymax = Inf,
+           alpha = 0.2, fill = "darkgray") +
+  annotate("rect", xmin = 0, xmax = 6, ymin = -Inf, ymax = Inf,
+           alpha = 0.2, fill = "darkgray") +
+  scale_x_continuous(breaks = 0:23) +
+  labs(
+    title = "Property Crimes by Hour of Day",
+    subtitle = "Shaded region represents dark hours (20:00–06:00)",
+    x = "Hour (24-hour format)",
+    y = "Number of Property Crimes"
+  ) +
+  theme_minimal()
+```
+
+**Plot note**
+
+I used AI for help generating this plot because I got stuck. Here is the link https://chatgpt.com/s/t_69268702b28c81919f8dff4f1b2a8583. 
