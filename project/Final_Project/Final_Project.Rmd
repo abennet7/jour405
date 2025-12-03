@@ -13,16 +13,15 @@ library(tidyverse)
 
 
 ```{r}
-md_crime <- read_csv("~/Desktop/md_crime2023-2024.csv")
-#I know this needs to be fixed for part 2 revision, but I am not sure how to upload this file to github since it is saying the file is too large to push it to origin. I have emailed Professor Wells and will fix this as soon as I get guidance on what to do. Until I am able to fix it I am going to include screenshots into the project folder that the code does work on my end because the file is in my desktop. 
-```
+md_crime <- readr::read_csv(
+  "https://umd0-my.sharepoint.com/:u:/g/personal/abennet7_umd_edu/EdnEVrxZcYNIlg2r9PDJ_DEB_yaAedY-bKTqtsxwqm3Ngw?download=1"
+) |>
+  janitor::clean_names()
 
-```{r}
-md_county_pop <- read_csv("~/Documents/Jour405A/project/Final_Project/md_county_pop.csv")
 ```
 
 1. The md_county_pop set of data includes the population of all counties in Maryland.
-The md_crime set of data includes a list of all crimes that happened in MD throughout 2023-2024. It includes the date & what time the crime occurred, offense name & category, crime against society person or property, and the location. 
+The md_crime set of data includes a list of all crimes that happened in MD throughout 2023-2024. It includes the date & what time the crime occurred, offense name & category, crime against society person or property, and the location. **i have since removed the md_county_pop data as it was breaking my code**
 2. The column that will be the most important is county_name. If I am examining crime patterns in counties I will need to be able to seperate what is going on in each county.
 3. What isn't necessarily missing, but I want to create new data sets and seperate the crimes by county. Because there is so much data it is a little hard to read currently and that I believe would help me understand what I am looking at more.
 
