@@ -1,6 +1,6 @@
 ---
 title: "Multiple Regression Analysis: Maryland Voter Turnout"
-name: "YOUR NAME HERE"
+name: "Anika Bennett"
 date: 8-24-2025
 ---
 
@@ -27,8 +27,7 @@ head(md_turnout)
 
 Before building our model, let's explore the data to understand the variables and their relationships. Examine the correlation matrix to see how the independent variables relate to each other and to the dependent variable (voter turnout). Which variables seem to be correlated? Are there any that are not correlated at all? Also look at the multiple scatterplots. Which variables seem to have a linear relationship with the dependent variable? Which do not?
 
-ANSWER HERE
-
+There are a couple independent variables that would relate to eachother. Income and pct unemployed relate. Bachelors degrees and pct unemployed relate. Bachelors and income relate. Pct white does not correlate with any of them. Age could correlate with income, but since the medians are around the working age I would say it doesn't corrrelate. It would make a difference if the median age was significantly higher or lower, around retirement age or school age. The variables that seem to have a linear relationship with the dependent variable are pct unemployed, income, pct bachelors, age, and pct white.
 
 ```{r}
 # Summary statistics
@@ -90,7 +89,7 @@ The coefficients tell us the estimated effect of each independent variable on th
 
 Examine the output of the model, checking the coefficients, residuals, and overall model fit. How well does this multiple variable model predict turnout? Do any of the variables seem to be insignificant? Is this a useful model, based on what you've seen? Why?
 
-ANSWER HERE
+Overall this model is useful. The variables that are statistically significant are income, age, and pct white. The variables that are not significant are pct bachelors, population, and unemployment. If all you are looking at is the linear relationship then you are unable to tell which of the variables are actually statistically significant in affecting voter turnouter. I believed based off the linear relationship that unemployment would be statistically significant, but it is not although there is a negative relationship. It is important to compare the variables up against eachother in how they impact voter turnout.
 
 ```{r}
 # Build initial model with all predictors
@@ -104,19 +103,19 @@ summary(initial_model)
 
 Create three alternative models by adding or removing variables to see if we can improve the model's performance. Turnout will always be the dependent variable, but you should alter the independent variables by removing or adding some. Then compare the models using adjusted R-squared values. Are any of the models significantly better than the others?
 
-ANSWER HERE
+The first model I only put two of the variables that were statistically significant and you can see how that turnout is right below the full model. The second one I did only pct white because that was one of the statistically significant variables. I then did income and pct bachelors because initially I thought those two would be ones that impacted voter turnout the most, but you can see that it is the lowest of the three models. 
 
 ```{r}
 # Model 2
-model2 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model2 <- lm(turnout ~ median_age + income, data = md_turnout)
 summary(model2)
 
 # Model 3
-model3 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model3 <- lm(turnout ~ pct_white, data = md_turnout)
 summary(model3)
 
 # Model 4
-model4 <- lm(turnout ~ REPLACE ME, data = md_turnout)
+model4 <- lm(turnout ~ income + pct_bachelors_higher, data = md_turnout)
 summary(model4)
 
 # Compare models
@@ -145,4 +144,6 @@ ggplot(model_comparison, aes(x = reorder(Model, Adjusted_R_squared), y = Adjuste
 
 Without using the words "multiple regression model", describe how you could use this analysis to cover an election or voter participation story.
 
-ANSWER HERE
+When covering an election it is important to use predictors so that you can have a story ready to be published as soon as the election closes and winners are officially announced. You can compare the voter turnout to how people with variables typically vote to predict. It is all just prediction though.
+
+It would better be used for a voter participation story and predicting what types of people will be voting in upcoming elections.
