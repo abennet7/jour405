@@ -1,5 +1,6 @@
 ---
 title: "Final_Project"
+Name: Anika Bennett
 output: html_notebook
 ---
 
@@ -8,7 +9,7 @@ output: html_notebook
 library(knitr)
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
-
+#This code loads the tidyverse and knitr
 ```
 
 
@@ -17,7 +18,7 @@ md_crime <- readr::read_csv(
   "https://umd0-my.sharepoint.com/:u:/g/personal/abennet7_umd_edu/EdnEVrxZcYNIlg2r9PDJ_DEB_yaAedY-bKTqtsxwqm3Ngw?download=1"
 ) |>
   janitor::clean_names()
-
+#This code reads the data file. 
 ```
 
 1. The md_county_pop set of data includes the population of all counties in Maryland.
@@ -29,25 +30,30 @@ The md_crime set of data includes a list of all crimes that happened in MD throu
 
 ```{r}
 md_crime$incident_hour <- as.numeric(md_crime$incident_hour)
+#This code converts the incident_hour column to numeric values and overites any characters that may be in the column such as n/a
 ```
 
 ```{r}
 mean(md_crime$incident_hour, na.rm = TRUE)
+#This code gives the mean of the incident_hour column
 ```
 ```{r}
 median(md_crime$incident_hour, na.rm = TRUE)
+#This code gives the median of the incident_hour column
 ```
 
 ```{r}
 max(md_crime$incident_hour, na.rm = TRUE)
+#This code gives the max of the incident_hour column
 ```
 
 ```{r}
 min(md_crime$incident_hour, na.rm = TRUE)
+#This code gives the min of the incident_hour column
 ```
 ```{r}
 sd(md_crime$incident_hour, na.rm = TRUE)
-#added in part 2 revision
+#added in part 2 revision. This code gives the standard deviation of the incident_hour column
 ```
 
 Potential hypothesis that I could test include a. the majority of property crimes happen in the evening.
@@ -62,51 +68,61 @@ H1 : p > 0.50
 
 ```{r}
 Property_total <- sum(md_crime$crime_against == "Property", na.rm = TRUE)
+#This code is giving the sum of all crimes that fall under the property category.
 ```
 
 ```{r}
 Property_total
+#This gives the number of the above code
 ```
 
 ```{r}
 Property_dark <- sum(md_crime$crime_against == "Property" &
     (md_crime$incident_hour >= 20 | md_crime$incident_hour < 6),
     na.rm = TRUE)
+#This code gets the sum of all property crimes that happened between the hours of 20 and 6. 
 ```
 
 ```{r}
 Property_dark
+#This gives the number of the above code
 ```
 
 ```{r}
 x <- Property_dark
 n <- Property_total
+#This code just gives a variable to each total calculated prior. 
 ```
 
 ```{r}
 prop.test(x, n, p = 0.50, alternative = "greater", correct = FALSE)
+#This conducts a proportion test. 
 ```
 
 ```{r}
 binom.test(x, n, p = 0.50, alternative = "greater")
+#This conducts a binomial test.
 ```
 **Test Interpretation**
-The alternative hypothesis is true because the proportion is greater than 50% and the majority of property crimes do happen when it is dark out. 
+The alternative hypothesis is false because the proportion is less than 50% and the majority of property crimes did not happen when it was dark out. P = .37 which is lower than .50. So Since p < .50 we reject the alternative hypothesis.
 
 
 ```{r}
 property_df <- md_crime %>%
   filter(crime_against == "Property")
+#This is creating a new data frame that only includes property crimes. 
 ```
 
 ```{r}
 property_df$incident_hour <- as.numeric(property_df$incident_hour)
+#This converts the incident_hour column in the new "property_df" data frame to all numeric values.
 ```
 
 ```{r}
 hour_counts <- property_df %>%
   group_by(incident_hour) %>%
   summarise(count = n(), .groups = "drop")
+#This code is counting how many incidents happen each hour of the day for property crimes. 
 ```
 
 ```{r}
@@ -125,8 +141,21 @@ ggplot(hour_counts, aes(x = incident_hour, y = count)) +
     y = "Number of Property Crimes"
   ) +
   theme_minimal()
+#This is the code that creates the plot.
 ```
 
 **Plot note**
 
-I used AI for help generating this plot because I got stuck. Here is the link https://chatgpt.com/s/t_69268702b28c81919f8dff4f1b2a8583. 
+I used AI for help generating this plot because I got stuck. Here is the link https://chatgpt.com/s/t_69268702b28c81919f8dff4f1b2a8583.
+
+
+**Pitch**
+HL: Most property crimes don't happen under the cover of darkness.
+
+There is an assumption that robbers strike when people are sleeping at night, and there are less witnesses as it is dark out. However, based on Maryland Crime reports only 37% of property crimes happen while it is dark out. Rather than late-night break ins, the data suggests that these crimes happen during the day. This could be due to people being away from home at work, businesses being open, and neighborhoods are busy enough for the criminal to blend in. 
+
+My reporting plan would be to interview local police, victims of property crimes, neighborhood association leaders about how they try to protect their neighborhood, and business managers on how they protect their shop from theft. 
+
+Potential problems I could run in to is seasonal daylight changes. Based off my tests I used the hours 20 - 6 to be what defines "darkness" but this could change based on what season it is. There could also be a reporting bias in the data that property crimes that happen during the day are more likely to be reported because the victims are awake and able to report. Property crimes is also a broad category that does not only cover home break ins which could potentially be more common at night.  
+
+
